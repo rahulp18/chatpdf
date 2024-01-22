@@ -50,7 +50,7 @@ const FileUpload = () => {
           },
           onError(error, variables, context) {
             console.log(error);
-            toast.error('Error in creating Chat');
+            toast.error('Open Api Limit reached, make payment to continue');
           },
         });
       } catch (error) {

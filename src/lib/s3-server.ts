@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { pipeline } from 'stream';
 export async function downloadFromS3(file_key: string)  {
+  console.log(file_key)
  try {
     const s3 = new S3({
         region: process.env.NEXT_PUBLIC_S3_REGION!,

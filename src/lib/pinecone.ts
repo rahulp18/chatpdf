@@ -61,14 +61,14 @@ export async function loadS3IntoPinecone(fileKey:string){
     // 4. upload to pinecone
     const client=await getPineconeClient();
 
- await client.index("chatpdf").upsert(records);
-    // const namespace=pineconeIndex.namespace(convertToAscii(fileKey))
+//  await client.index("chatpdf").upsert(records);
+    const namespace=client.index('chatpdf').namespace(convertToAscii(fileKey))
 
     console.log("inserting vectors into pinecone");
-    //   console.log("index",namespace)
-    // await namespace.upsert(vectors);
+      console.log("namespace",namespace)
+    await namespace.upsert(vectors);
         // to delete temp file after getting data processed
-       
+       console.log("Hiiiii")
     return documents[0]
 
 }

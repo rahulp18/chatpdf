@@ -11,22 +11,22 @@ export async function getMatchesFromEmbeddings(
       apiKey: process.env.PINECONE_API_KEY!,
       environment:process.env.PINECONE_ENVIRONMENT!
     });
-    // const pineconeIndex = await client.index('chatpdf');
-    // const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-    // const queryResult = await namespace.query({
-    //   topK: 5,
-    //   vector: embeddings,
-    //   includeMetadata: true,
-    // });
-    const { matches } = await client
-    .index('chatpdf')
-    .query({
+    const pineconeIndex = await client.index('chatpdf');
+    const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
+    const queryResult = await namespace.query({
       topK: 5,
-      includeMetadata: true,
       vector: embeddings,
-      filter: { fileKey },
-    })
-    return  matches || [];
+      includeMetadata: true,
+    });
+    // const { matches } = await client
+    // .index('chatpdf')
+    // .query({
+    //   topK: 5,
+    //   includeMetadata: true,
+    //   vector: embeddings,
+    //   filter: { fileKey },
+    // })
+    return  queryResult.matches || [];
   } catch (error) {
     console.log('Error querying embeddings', error);
     throw error;
